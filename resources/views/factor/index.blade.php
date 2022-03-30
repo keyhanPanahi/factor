@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('head-tag')
-    <title>کاربران</title>
+    <title>فاکتور ها</title>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
             <!-- Page Heading Start -->
             <div class="col-12 col-lg-auto mb-20">
                 <div class="page-heading">
-                    <h3 class="title">کاربران</h3>
+                    <h3 class="title">فاکتور ها</h3>
                 </div>
             </div><!-- Page Heading End -->
 
@@ -26,46 +26,40 @@
             <div class="col-12 mb-30">
                 <div class="box">
                     <div class="box-head">
-                        <a href="{{ route('user.create') }}" class="btn btn-primary"><span class="ti-plus"></span> ایجاد کاربر جدید</a>
+                        <a href="{{ route('factor.create') }}" class="btn btn-primary"><span class="ti-plus"></span> ایجاد فاکتور جدید</a>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered data-table data-table-default">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام</th>
-                                <th>ایمیل</th>
-                                <th>تاریخ ایجاد</th>
-                                <th>تاریخ ویرایش</th>
+                                <th>موضوع</th>
+                                <th>تاریخ</th>
+                                <th>نام مشتری</th>
                                 <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($factors as $factor)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->updated_at }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $factor->subject }}</td>
+                                <td>{{  \Morilog\Jalali\Jalalian::forge($factor->date)->format('%A, %d %B %Y') }}</td>
+                                <td>{{ $factor->customer->name }}</td>
+
                                 <td>
-                                    <a href="{{ route('user.show', $user->id) }}" class="btn btn-outline-info btn-sm"><span class="ti-user"></span> نمایش</a>
-                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-outline-success btn-sm"><span class="ti-reload"></span> ویرایش</a>
-                                    <a href="{{ route('user.destroy', $user->id) }}" class="btn btn-outline-danger btn-sm"><span class="ti-close"></span> حذف</a>
+                                    <a href="{{ route('factor.edit', $factor->id) }}" class="btn btn-primary btn-sm"><span class="fa fa-edit"></span> ویرایش</a>
+                                    <a href="{{ route('item.index',$factor->id) }}" class="btn btn-success btn-sm"><span class="fa fa-th-large"></span> آیتم ها</a>
+                                    <form class="d-inline" action="{{ route('factor.destroy',$factor->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger btn-sm delete" type="submit"><i class="ti-trash"></i> حذف</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>#</th>
-                                <th>نام</th>
-                                <th>ایمیل</th>
-                                <th>تاریخ ایجاد</th>
-                                <th>تاریخ ویرایش</th>
-                                <th>عملیات</th>
-                            </tr>
-                            </tfoot>
+
                         </table>
                     </div>
                 </div>
@@ -84,5 +78,9 @@
     <!-- Plugins & Activation JS For Only This Page -->
     <script src="{{ asset('assets/js/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/datatables/datatables.active.js') }}"></script>
+
+    @include('sweetalert.delete-confirm', ['className' => 'delete'])
+
+
 
 @endsection

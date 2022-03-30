@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('factors', function (Blueprint $table) {
             $table->id();
+            $table->string('subject');
             $table->timestamp('date');
             $table->foreignId('customer_id')->constrained('customers')->onUpdate('cascade')->onDelete('cascade');
-            $table->decimal('total_prices');
             $table->timestamps();
             $table->softDeletes();
         });

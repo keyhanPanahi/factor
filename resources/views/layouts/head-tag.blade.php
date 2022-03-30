@@ -20,6 +20,8 @@
 
 <!-- Plugins CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/plugins/plugins.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/sweetalert/sweetalert2.css') }}">
+
 
 <!-- Helper CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/helper.css') }}">

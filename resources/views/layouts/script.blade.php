@@ -9,6 +9,8 @@
 
 <!--Plugins JS-->
 <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/sweetalert/sweetalert2.min.js') }}"></script>
+
 <script src="{{ asset('assets/js/plugins/tippy4.min.js.js') }}"></script>
 
 <!--Main JS-->

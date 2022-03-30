@@ -24,6 +24,8 @@
 
 @include('layouts.script')
 @yield('script')
+@include('sweetalert.success')
+@include('sweetalert.error')
 
 
 </body>
